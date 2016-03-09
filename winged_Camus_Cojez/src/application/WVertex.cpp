@@ -82,7 +82,7 @@ void WVertex::computeNormal() {
     average /= cpt;
 
     // A LAISSER à la fin
-    // average.normalize();
+    average.normalize();
     this->normal(average);
 }
 
