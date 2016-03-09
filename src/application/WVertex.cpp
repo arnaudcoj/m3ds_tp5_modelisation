@@ -33,9 +33,24 @@ using namespace std;
 void WVertex::computeNormal() {
   Vector3 average(0,0,0); // à calculer
 
-  // TODO : compléter
+  WEdge *e, *start;
+  double cpt = 0.;
 
+  e = start = this->edge();
 
+  // TODO : check si nappe
+
+  do {
+      average += e->right()->normal();
+      cpt++;
+
+      if(this == e->begin())
+          e = e->predLeft();
+      else
+          e = e->predRight();
+  } while (e != start);
+
+  average /= cpt;
 
   // A LAISSER à la fin
   // average.normalize();
