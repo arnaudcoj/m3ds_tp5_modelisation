@@ -40,9 +40,15 @@ void WFace::draw(bool withNormal) {
   do {
       if(this == e->right()) {
           position.push_back(e->begin()->position());
+          //q3
+          normal.push_back(e->begin()->normal());
+
           e = e->succRight();
       } else {
           position.push_back(e->end()->position());
+          //q3
+          normal.push_back(e->end()->normal());
+
           e = e->succLeft();
       }
 
