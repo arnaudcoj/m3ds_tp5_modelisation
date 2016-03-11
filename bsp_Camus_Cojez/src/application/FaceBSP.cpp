@@ -24,11 +24,14 @@ ESign FaceBSP::sign(const Vector3 &p) const {
   /// - v1.dot(v2) : produit scalaire entre 2 Vector3
   /// - Vector3 v(p1,p2) : construit v avec p2-p1. On peut également faire directement v=p2-p1
 
-
   ESign res=SIGN_NONE;
 
-  // TODO : A COMPLETER
-
+  //e3q1
+  if(_tabVertex.size() > 0)
+      if(Vector3(_tabVertex[0]->point(), p).dot(_normal) >= 0)
+          res = SIGN_PLUS;
+      else
+          res = SIGN_MINUS;
 
   return res;
 }
@@ -43,9 +46,14 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
   /// - u1.dot(u2) : produit scalaire
 
   Vector3 res;
+  Vector3 A = point(0);
+  Vector3 u(p1,p2);
 
-  // TODO : A COMPLETER
+  //e3q2
+  //pour la résolution des équation voir le readme
+  double k = (A.dot(normal()) - p1.dot(normal())) / (u).dot(normal());
 
+  res = p1 + k * u;
 
   return res;
 }
