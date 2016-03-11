@@ -76,10 +76,64 @@ void FaceBSP::separe(const FaceBSP &f) {
   vertexNegative.clear();
   vertexPositive.clear();
 
-// TODO : à compléter
+//e4q1
+
+  VertexBSP *oldV = nullptr;
+  VertexBSP *v = _tabVertex[0];
+
+  //1er point
+  switch (f.sign(v->point())) {
+  case SIGN_PLUS:
+      vertexPositive.push_back(v);
+      break;
+  case SIGN_MINUS:
+      vertexNegative.push_back(v);
+      break;
+  default:
+      break;
+  }
 
 
+  //suite des points et découpe si besoin est
+  for(int i = 1; i < _tabVertex.size(); i++) {
+      oldV = v;
+      v = _tabVertex[i];
 
+      switch (f.sign(v->point())) {
+      case SIGN_PLUS:
+          if(f.sign(oldV->point()) != f.sign(v->point())) {
+              VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
+              inter->interpolateNormal(*oldV, *v);
+              vertexPositive.push_back(inter);
+              vertexNegative.push_back(inter);
+          }
+          vertexPositive.push_back(v);
+          break;
+      case SIGN_MINUS:
+          vertexNegative.push_back(v);
+          if(f.sign(oldV->point()) != f.sign(v->point())) {
+              VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
+              inter->interpolateNormal(*oldV, *v);
+              vertexPositive.push_back(inter);
+              vertexNegative.push_back(inter);
+          }
+          break;
+      default:
+          break;
+      }
+
+  }
+
+  //pour la fermeture
+  oldV = v;
+  v = _tabVertex[0];
+
+  if(f.sign(oldV->point()) != f.sign(v->point())) {
+      VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
+      inter->interpolateNormal(*oldV, *v);
+      vertexPositive.push_back(inter);
+      vertexNegative.push_back(inter);
+  }
 
 // A LAISSER à la fin ! (construction des faces selon les tableaux de points)
   createFace(vertexNegative,vertexPositive);
