@@ -110,13 +110,13 @@ void FaceBSP::separe(const FaceBSP &f) {
           vertexPositive.push_back(v);
           break;
       case SIGN_MINUS:
-          vertexNegative.push_back(v);
           if(f.sign(oldV->point()) != f.sign(v->point())) {
               VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
               inter->interpolateNormal(*oldV, *v);
               vertexPositive.push_back(inter);
               vertexNegative.push_back(inter);
           }
+          vertexNegative.push_back(v);
           break;
       default:
           break;
