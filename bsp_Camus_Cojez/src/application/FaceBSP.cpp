@@ -52,7 +52,15 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
   //e3q2
 
   //pour la résolution des équation voir le readme
-  double k = - Vector3(A, p1).dot(normal()) / u.dot(normal());
+  double scalAp1 = Vector3(A, p1).dot(normal());
+
+  double scalU = u.dot(normal());
+  if (fabs(scalU) < 0.01 )
+      return (p1 + p2) / 2;
+
+  double k = - scalAp1 / scalU;
+  if ( fabs(k) < 0.01)
+      return p1;
 
   res = p1 + k * u;
 
