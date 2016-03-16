@@ -8,15 +8,17 @@ Doit contenir :
 
 E3
 
-Q2. //TODO changer résolution
+Q2.
 pour u = p1p2,
 pour I = p1 + k * u
 on cherche k tq AI.n = 0
-  AI.n = 0 <=> A.n - I.n = 0
-  => I.n = A.n
-  => (p1 + k * u).n = A.n
-  => p1.n + (k * u).n = A.n
-  => (k * u).n = A.n - p1.n
-  => k * u.n = A.n - p1.n
-  => k = (A.n - p1.n) / u.n
-  (c'était pas facile)
+  AI.n = 0 <=> (I - A).n = 0
+  ((p1 + k * u) - A).n = 0
+  (p1 + k * u - A).n = 0
+  ((p1 - A) + k * u).n = 0
+  (Ap1 + k * u).n = 0
+  Ap1.n + (k * u).n = 0
+  (k * u).n = - Ap1.n
+  k* (u.n) = - Ap1.n
+  k = - Ap1.n / u.n
+=> formule utilisée dans intersection

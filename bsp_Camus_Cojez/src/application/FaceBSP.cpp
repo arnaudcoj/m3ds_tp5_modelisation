@@ -52,7 +52,7 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
   //e3q2
 
   //pour la résolution des équation voir le readme
-  double k = - (p1 - A).dot(normal()) / u.dot(normal());
+  double k = - Vector3(A, p1).dot(normal()) / u.dot(normal());
 
   res = p1 + k * u;
 
@@ -100,23 +100,18 @@ void FaceBSP::separe(const FaceBSP &f) {
       oldV = v;
       v = _tabVertex[i];
 
+      if(f.sign(oldV->point()) != f.sign(v->point())) {
+          VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
+          inter->interpolateNormal(*oldV, *v);
+          vertexPositive.push_back(inter);
+          vertexNegative.push_back(inter);
+      }
+
       switch (f.sign(v->point())) {
       case SIGN_PLUS:
-          if(f.sign(oldV->point()) != f.sign(v->point())) {
-              VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
-              inter->interpolateNormal(*oldV, *v);
-              vertexPositive.push_back(inter);
-              vertexNegative.push_back(inter);
-          }
           vertexPositive.push_back(v);
           break;
       case SIGN_MINUS:
-          if(f.sign(oldV->point()) != f.sign(v->point())) {
-              VertexBSP *inter=createVertex(f.intersection(oldV->point(), v->point()));
-              inter->interpolateNormal(*oldV, *v);
-              vertexPositive.push_back(inter);
-              vertexNegative.push_back(inter);
-          }
           vertexNegative.push_back(v);
           break;
       default:
