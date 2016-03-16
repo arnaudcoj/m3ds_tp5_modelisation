@@ -55,11 +55,11 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
   double scalAp1 = Vector3(A, p1).dot(normal());
 
   double scalU = u.dot(normal());
-  if (fabs(scalU) < 0.01 )
+  if (fabs(scalU) < 0.01 ) //q4
       return (p1 + p2) / 2;
 
   double k = - scalAp1 / scalU;
-  if ( fabs(k) < 0.01)
+  if ( fabs(k) < 0.01) //q4
       return p1;
 
   res = p1 + k * u;
