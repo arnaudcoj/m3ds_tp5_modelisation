@@ -8,7 +8,7 @@ Doit contenir :
 
 E3
 
-Q2.
+Q2. //TODO changer résolution
 pour u = p1p2,
 pour I = p1 + k * u
 on cherche k tq AI.n = 0

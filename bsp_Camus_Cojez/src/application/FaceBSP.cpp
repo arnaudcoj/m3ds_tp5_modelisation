@@ -50,8 +50,9 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
   Vector3 u(p1,p2);
 
   //e3q2
+
   //pour la résolution des équation voir le readme
-  double k = (A.dot(normal()) - p1.dot(normal())) / (u).dot(normal());
+  double k = - (p1 - A).dot(normal()) / u.dot(normal());
 
   res = p1 + k * u;
 
